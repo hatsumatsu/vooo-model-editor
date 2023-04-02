@@ -1,0 +1,401 @@
+@mixin balance-baseline {
+
+  & > span {
+    position: relative;
+    top: 0.1em;
+
+    display: block;
+  }
+}
+
+.UI {
+  --padding--top: 6px;
+  --padding--bottom: 6px;
+  --padding--h: 6px;
+  
+  --font-family: 'Lab Mono Web', monospace;
+  --font-size: 12px;
+
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow: auto;
+
+  width: 50%;
+  max-width: 400px;
+  margin: 2px;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1.2;
+  text-transform: uppercase;  
+}
+
+.UI__content {
+}
+
+.UIPanel {
+  margin: 0 0 2px;
+
+  &.isLightText {
+    color: #fff;
+  }
+}
+
+.UIPanel__title {
+  align-self: flex-start;
+
+  margin: 0;
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
+
+  border-bottom: 1px solid currentColor;
+
+  user-select: none;
+
+  cursor: pointer;
+
+  @include balance-baseline;
+}
+
+.UIPanel__content {
+  margin: 0;
+}
+
+.UIFields {
+  
+}
+
+.UIField {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin: 0;
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
+  
+  border-bottom: 1px solid currentColor;
+}
+
+.UIField__label {
+  width: 40%;
+  padding: 0 1em 0 0;
+
+  opacity: 0.5;
+
+  user-select: none;
+
+  @include balance-baseline;
+}
+
+.UIField__input {
+  width: 60%;
+  margin: 0;
+}
+
+.UIField__slider {
+  width: 40%;
+  margin: 0;
+}
+
+@mixin ControlBase {
+  padding: 3px 3px 0px;
+
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+
+  background-color: rgba( 0,0,0, 0.1);
+  border: 1px solid rgba( 0,0,0, 0.2);
+  border-radius: 1px;
+  box-shadow: none !important;
+  outline: none !important;
+
+
+  [data-align="right"] {
+    text-align: right;
+  }
+
+  .isLightText & {
+    background-color: rgba( 255,255,255, 0.1);
+    border: 1px solid rgba( 255,255,255, 0.2);
+  }
+
+  &:focus-visible,
+  &:hover {
+    border: 1px solid rgba( 0,0,0, 0.8);
+  
+    .isLightText & {
+      border: 1px solid rgba( 255,255,255, 0.8);
+    }
+  } 
+}
+
+/* Input */
+.Input {
+  @include ControlBase;
+}
+
+/* Button */
+.Button {
+  --border-radius: 3px;
+
+  @include ControlBase();
+
+  min-width: 1.6em;
+  text-transform: uppercase;
+
+  border-radius: var(--border-radius);
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.ButtonGroup {
+  border-radius: 0;
+
+  &.ButtonGroup--first {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+  }
+
+  &.ButtonGroup--last {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+}
+
+/* Slider */
+.Slider__slider {
+  appearance: none;
+
+  width: 45%;
+  margin: 0 1em 0 0;
+
+  background: none;
+
+  &::-webkit-slider-runnable-track {
+    height: 4px;
+    background-color: rgba( 0,0,0, 0.2);
+    border-radius: 2px;
+  }
+
+  &::-moz-range-track {
+    height: 4px;
+    background-color: rgba( 0,0,0, 0.2);
+    border-radius: 2px;
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+
+    background-color: rgba( 0,0,0, 0.8);
+    border-radius: 50%;
+  }
+
+  &::-moz-range-thumb {
+    appearance: none;    
+
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+
+    background-color: rgba( 0,0,0, 0.8);
+    border-radius: 50%;
+  }
+
+  .isLightText & {
+
+    &::-webkit-slider-runnable-track {
+      background-color: rgba( 255,255,255, 0.2);
+    }
+
+    &::-moz-range-track {
+      background-color: rgba( 255,255,255, 0.2);
+    }
+
+    &::-webkit-slider-thumb {
+      background-color: rgba( 255,255,255, 0.8);
+    }
+  
+    &::-moz-range-thumb {
+  
+      background-color: rgba( 255,255,255, 0.8);
+    }
+  }
+
+  &:focus-visible,
+  &:hover {
+    &::-webkit-slider-thumb {
+      background-color: rgba( 255,255,255, 1);
+    }
+  
+    &::-moz-range-thumb {
+      background-color: rgba( 255,255,255, 1);
+    }
+
+    .isLightText & {    
+      &::-webkit-slider-thumb {
+        background-color: rgba( 255,255,255, 1);
+      }
+    
+      &::-moz-range-thumb {
+    
+        background-color: rgba( 255,255,255, 1);
+      }    
+    }
+  }
+}
+
+.Slider__input {
+
+  width: 15%;
+
+  background: none;
+
+
+}
+
+/* Checkbcx */
+.Checkbox {
+  
+}
+
+.Checkbox__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+
+  opacity: 1;
+
+  cursor: pointer;
+
+  & > span {
+    opacity: 0.5;
+  }
+
+  &::after {
+    content: 'no';
+
+    @include ControlBase;
+
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: block;
+    width: 3.6em;
+
+    text-align: center;
+  }
+
+
+  input:checked + & {
+    &::after {
+      content: 'yes';
+    }
+  }
+}
+
+.Checkbox__input {
+  display: none;
+}
+
+
+/* Markers */
+.Markers {
+
+}
+
+.Markers__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.Markers__actions {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom); 
+}
+
+.Marker {
+  margin: 0;
+  padding: 0;
+
+  border-bottom: 1px solid currentColor;
+}
+
+.Marker__header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
+}
+
+.Marker__index {
+  @include ControlBase;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 3em;
+  margin: 0;
+  padding: 3px 3px 1px;
+
+
+  font-size: 10px;
+  text-align: center;
+
+  border-radius: 2em;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.Marker__title {
+  flex-grow: 1;
+  margin: 0 3px;
+}
+
+.Marker__remove {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* Output */
+.Output {
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
+}
+
+
+.Output__input {
+  width: 100%;
+  height: calc( 6em * 1.2 );
+
+  resize: vertical;
+}
+
+/* Import */
+.Import {
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
+}
+
+
+.Import__input {
+  width: 100%;
+  height: calc( 6em * 1.2 );
+
+  resize: vertical;
+}
