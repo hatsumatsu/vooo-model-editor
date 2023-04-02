@@ -1,4 +1,3 @@
-import './styles.scss';
 
 import { Viewer } from './components/Viewer/Viewer';
 import { UI } from './components/UI/UI';

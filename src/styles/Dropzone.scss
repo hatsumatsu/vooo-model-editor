@@ -1,5 +1,5 @@
 .Dropzone {
-
+  width: 100%;
 }
 
 .Dropzone__input {
@@ -7,7 +7,17 @@
 }
 
 .Dropzone__hint {
+  display: block;
   min-height: 3.6em;
+  width: 100%;
   margin: 0;
-  padding: 0.1em 0 0;
+  padding: 1.2em 0.6em;
+
+  text-align: center;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  user-select: none;
+  cursor: pointer;
 }

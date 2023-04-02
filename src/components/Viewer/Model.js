@@ -10,7 +10,6 @@ import {
 
 import { shallow } from 'zustand/shallow';
 
-import { useControls } from 'leva';
 import { useFrame, useThree } from '@react-three/fiber';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -20,7 +19,7 @@ import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
 
 import { useData } from '../../stores/data';
 
-function Model({ isHidden }) {
+function Model() {
   const { gl } = useThree();
 
   const {

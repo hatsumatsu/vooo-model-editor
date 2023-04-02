@@ -1,5 +1,4 @@
 @mixin balance-baseline {
-
   & > span {
     position: relative;
     top: 0.1em;
@@ -12,7 +11,7 @@
   --padding--top: 6px;
   --padding--bottom: 6px;
   --padding--h: 6px;
-  
+
   --font-family: 'Lab Mono Web', monospace;
   --font-size: 12px;
 
@@ -30,7 +29,7 @@
   font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: 1.2;
-  text-transform: uppercase;  
+  text-transform: uppercase;
 }
 
 .UI__content {
@@ -64,7 +63,6 @@
 }
 
 .UIFields {
-  
 }
 
 .UIField {
@@ -76,7 +74,7 @@
   width: 100%;
   margin: 0;
   padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
-  
+
   border-bottom: 1px solid currentColor;
 }
 
@@ -108,30 +106,29 @@
   line-height: inherit;
   color: inherit;
 
-  background-color: rgba( 0,0,0, 0.1);
-  border: 1px solid rgba( 0,0,0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 1px;
   box-shadow: none !important;
   outline: none !important;
 
-
-  [data-align="right"] {
+  [data-align='right'] {
     text-align: right;
   }
 
   .isLightText & {
-    background-color: rgba( 255,255,255, 0.1);
-    border: 1px solid rgba( 255,255,255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   &:focus-visible,
   &:hover {
-    border: 1px solid rgba( 0,0,0, 0.8);
-  
+    border: 1px solid rgba(0, 0, 0, 0.8);
+
     .isLightText & {
-      border: 1px solid rgba( 255,255,255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.8);
     }
-  } 
+  }
 }
 
 /* Input */
@@ -180,13 +177,13 @@
 
   &::-webkit-slider-runnable-track {
     height: 4px;
-    background-color: rgba( 0,0,0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 2px;
   }
 
   &::-moz-range-track {
     height: 4px;
-    background-color: rgba( 0,0,0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 2px;
   }
 
@@ -197,76 +194,69 @@
     height: 12px;
     margin-top: -4px;
 
-    background-color: rgba( 0,0,0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 50%;
   }
 
   &::-moz-range-thumb {
-    appearance: none;    
+    appearance: none;
 
     width: 12px;
     height: 12px;
     margin-top: -4px;
 
-    background-color: rgba( 0,0,0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 50%;
   }
 
   .isLightText & {
-
     &::-webkit-slider-runnable-track {
-      background-color: rgba( 255,255,255, 0.2);
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     &::-moz-range-track {
-      background-color: rgba( 255,255,255, 0.2);
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
     &::-webkit-slider-thumb {
-      background-color: rgba( 255,255,255, 0.8);
+      background-color: rgba(255, 255, 255, 0.8);
     }
-  
+
     &::-moz-range-thumb {
-  
-      background-color: rgba( 255,255,255, 0.8);
+      background-color: rgba(255, 255, 255, 0.8);
     }
   }
 
   &:focus-visible,
   &:hover {
     &::-webkit-slider-thumb {
-      background-color: rgba( 255,255,255, 1);
-    }
-  
-    &::-moz-range-thumb {
-      background-color: rgba( 255,255,255, 1);
+      background-color: rgba(255, 255, 255, 1);
     }
 
-    .isLightText & {    
+    &::-moz-range-thumb {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .isLightText & {
       &::-webkit-slider-thumb {
-        background-color: rgba( 255,255,255, 1);
+        background-color: rgba(255, 255, 255, 1);
       }
-    
+
       &::-moz-range-thumb {
-    
-        background-color: rgba( 255,255,255, 1);
-      }    
+        background-color: rgba(255, 255, 255, 1);
+      }
     }
   }
 }
 
 .Slider__input {
-
   width: 15%;
 
   background: none;
-
-
 }
 
 /* Checkbcx */
 .Checkbox {
-  
 }
 
 .Checkbox__label {
@@ -297,7 +287,6 @@
     text-align: center;
   }
 
-
   input:checked + & {
     &::after {
       content: 'yes';
@@ -309,10 +298,8 @@
   display: none;
 }
 
-
 /* Markers */
 .Markers {
-
 }
 
 .Markers__list {
@@ -326,7 +313,7 @@
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  padding: var(--padding--top) var(--padding--h) var(--padding--bottom); 
+  padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
 }
 
 .Marker {
@@ -353,7 +340,6 @@
   margin: 0;
   padding: 3px 3px 1px;
 
-
   font-size: 10px;
   text-align: center;
 
@@ -379,10 +365,9 @@
   padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
 }
 
-
 .Output__input {
   width: 100%;
-  height: calc( 6em * 1.2 );
+  height: calc(6em * 1.2);
 
   resize: vertical;
 }
@@ -392,10 +377,9 @@
   padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
 }
 
-
 .Import__input {
   width: 100%;
-  height: calc( 6em * 1.2 );
+  height: calc(6em * 1.2);
 
   resize: vertical;
 }

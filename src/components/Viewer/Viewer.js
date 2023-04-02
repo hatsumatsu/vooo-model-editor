@@ -6,7 +6,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Html,
   OrbitControls,
-  PivotControls,
   TransformControls,
   useHelper
 } from '@react-three/drei';
