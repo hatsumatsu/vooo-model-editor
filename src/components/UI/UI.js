@@ -2,11 +2,14 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { shallow } from 'zustand/shallow';
 import { nanoid } from 'nanoid';
 
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
+
 import { Dropzone } from './Dropzone';
 import { Slider } from './Slider';
 
 import { useData } from '../../stores/data';
-import { update } from '@react-spring/three';
 import { Checkbox } from './Checkbox';
 
 function UI() {
@@ -219,25 +222,19 @@ function TransformUI() {
 }
 
 function MarkersUI() {
-  const {
-    items,
-    setItems,
-    addItem,
-    removeItem,
-    updateItem,
-    moveItem
-  } = useData(
-    (state) => ({
-      items: state.items,
+  const { items, setItems, addItem, removeItem, updateItem, moveItem } =
+    useData(
+      (state) => ({
+        items: state.items,
 
-      setItems: state.setItems,
-      addItem: state.addItem,
-      removeItem: state.removeItem,
-      updateItem: state.updateItem,
-      moveItem: state.moveItem
-    }),
-    shallow
-  );
+        setItems: state.setItems,
+        addItem: state.addItem,
+        removeItem: state.removeItem,
+        updateItem: state.updateItem,
+        moveItem: state.moveItem
+      }),
+      shallow
+    );
 
   /**
    * Events
@@ -378,7 +375,71 @@ function Item({
           ✕
         </button>
       </div>
+      <div className="Marker__content">
+        <MarkerEditor />
+      </div>
     </li>
+  );
+}
+
+function MarkerEditor() {
+  const editor = useEditor({
+    extensions: [StarterKit, Link],
+    content: '<p>Hello World!</p>'
+  });
+
+  return (
+    <div className="Editor">
+      <div className="Editor__ui">
+        <button
+          onClick={() => {
+            editor.chain().focus().toggleBold().run();
+          }}
+          className="Button ButtonGroup ButtonGroup--first"
+        >
+          B
+        </button>
+
+        <button
+          onClick={() => {
+            editor.chain().focus().toggleItalic().run();
+          }}
+          className="Button ButtonGroup"
+        >
+          I
+        </button>
+
+        <button
+          onClick={() => {
+            const url = window.prompt('URL');
+            editor.commands.setLink({ href: url });
+          }}
+          className="Button ButtonGroup"
+        >
+          Link
+        </button>
+        <button
+          onClick={() => {
+            editor.commands.unsetLink();
+          }}
+          className="Button ButtonGroup ButtonGroup--last"
+        >
+          Unlink
+        </button>
+
+        <button
+          onClick={() => {
+            editor.commands.unsetAllMarks();
+          }}
+          className="Button ButtonGroup ButtonGroup--last"
+        >
+          Clear
+        </button>
+      </div>
+      <div className="Editor__content">
+        <EditorContent editor={editor} />
+      </div>
+    </div>
   );
 }
 
