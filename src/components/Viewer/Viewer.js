@@ -116,13 +116,18 @@ function Markers() {
     <group>
       {items &&
         items.map((item, i) => (
-          <Marker item={item} key={`marker-${item.id}`} onChange={onChange} />
+          <Marker
+            item={item}
+            index={i}
+            key={`marker-${item.id}`}
+            onChange={onChange}
+          />
         ))}
     </group>
   );
 }
 
-function Marker({ item, onChange = () => {} }) {
+function Marker({ item, index, onChange = () => {} }) {
   const markerRef = useRef();
   const debouncer = useRef();
   console.log('Marker', item, item.position, markerRef.current?.position);
@@ -177,7 +182,7 @@ function Marker({ item, onChange = () => {} }) {
         </mesh>
 
         <Html>
-          {item.title && <p className="ViewerMarker">{item.title}</p>}
+          <p className="ViewerMarker">{item.title || index + 1}</p>
         </Html>
       </group>
     </>

@@ -6,7 +6,7 @@ body {
 }
 
 body {
-  font-family: 'Lab Mono Web', monospace;
+  font-family: 'JetBrains Mono', monospace;
   color: #000;
 
   background-color: #ddd;
@@ -17,13 +17,12 @@ body {
 
 * {
   box-sizing: border-box;
-  
+
   &::before,
   &::after {
-    
     box-sizing: border-box;
   }
-} 
+}
 
 .App {
 }

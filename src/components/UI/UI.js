@@ -243,7 +243,8 @@ function MarkersUI() {
     const item = {
       id: nanoid(),
       position: [0, 0, 0],
-      title: ''
+      title: '',
+      content: ''
     };
 
     addItem(item);
@@ -312,6 +313,7 @@ function Item({
   onChange = () => {}
 }) {
   const [title, setTitle] = useState(item.title);
+  const [content, setContent] = useState(item.content);
 
   useEffect(() => {
     let debouncer;
@@ -319,7 +321,7 @@ function Item({
     function onChangeDebounced() {
       onChange({
         ...item,
-        ...{ title }
+        ...{ title, content }
       });
     }
 
@@ -329,10 +331,14 @@ function Item({
     return () => {
       clearTimeout(debouncer);
     };
-  }, [title, onChange]); // omit item as dependency to avoid infinite loop
+  }, [title, content, onChange]); // omit item as dependency to avoid infinite loop
 
   function onChangeTitle(event) {
     setTitle(event.target.value);
+  }
+
+  function onChangeContent(content) {
+    setContent(content);
   }
 
   return (
@@ -376,16 +382,19 @@ function Item({
         </button>
       </div>
       <div className="Marker__content">
-        <MarkerEditor />
+        <MarkerEditor content={content} onChange={onChangeContent} />
       </div>
     </li>
   );
 }
 
-function MarkerEditor() {
+function MarkerEditor({ content, onChange = () => {} }) {
   const editor = useEditor({
     extensions: [StarterKit, Link],
-    content: '<p>Hello World!</p>'
+    content: content,
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    }
   });
 
   return (
@@ -397,7 +406,7 @@ function MarkerEditor() {
           }}
           className="Button ButtonGroup ButtonGroup--first"
         >
-          B
+          <strong>B</strong>
         </button>
 
         <button
@@ -406,7 +415,7 @@ function MarkerEditor() {
           }}
           className="Button ButtonGroup"
         >
-          I
+          <em>I</em>
         </button>
 
         <button
@@ -495,6 +504,14 @@ function OutputUI() {
   return (
     <div className="Output">
       <textarea disabled className="Output__input Input" value={output} />
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(output);
+        }}
+        className="Button"
+      >
+        Copy to clipboard
+      </button>
     </div>
   );
 }
@@ -535,6 +552,7 @@ function ImportUI() {
         ref={inputRef}
         className="Import__input Input"
         onChange={onChange}
+        placeholder="Paste configuration..."
       />
     </div>
   );
