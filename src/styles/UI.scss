@@ -424,6 +424,10 @@
 .Editor__ui {
   display: flex;
   margin: 0 0 var(--padding--top);
+
+  & strong {
+    font-weight: 800;
+  }
 }
 
 .Editor__content {
@@ -431,5 +435,18 @@
 
   & p {
     margin: 0;
+  }
+
+  & strong {
+    font-weight: 800;
+  }
+
+  & a {
+    color: blue;
+    text-decoration: underline;
+
+    &:visited {
+      color: blue;
+    }
   }
 }
