@@ -14,8 +14,8 @@
 
 .ViewerMarker {
   max-width: 200px;
-  margin: 12px 0 0 12px;
-  padding: 3px 6px 2px;
+  margin: -24px 0 0 12px;
+  padding: 2px 6px 1px;
   overflow: hidden;
 
   font-size: 12px;
@@ -24,7 +24,34 @@
 
   background-color: #fff;
   box-shadow: 2px 2px 0px 0px #000;
+  border-radius: 2em;
 
   touch-action: none;
   pointer-events: none;
+}
+
+.Space__label {
+  margin: 0;
+  padding: 2px 6px 1px;
+
+  font-size: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  color: #fff;
+
+  background-color: #000;
+  user-select: none;
+
+  opacity: 0.5;
+
+  pointer-events: none;
+  touch-action: none;
+}
+
+.Space__label--front--tl {
+}
+
+.Space__label--front--br {
+  transform: translate(-100%, -100%);
 }

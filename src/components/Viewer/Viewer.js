@@ -95,6 +95,17 @@ function Space() {
       </mesh>
 
       <gridHelper size={BASE_SIZE} division={10} color={'#000'} />
+
+      <Html position={[-BASE_SIZE / 2, BASE_SIZE / 2, BASE_SIZE / 2]}>
+        <p className="Space__label Space__label--front Space__label--front--tl">
+          Front
+        </p>
+      </Html>
+      <Html position={[BASE_SIZE / 2, -BASE_SIZE / 2, BASE_SIZE / 2]}>
+        <p className="Space__label Space__label--front Space__label--front--br">
+          Front
+        </p>
+      </Html>
     </>
   );
 }
