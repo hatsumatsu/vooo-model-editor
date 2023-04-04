@@ -11,6 +11,7 @@ import { Slider } from './Slider';
 
 import { useData } from '../../stores/data';
 import { Checkbox } from './Checkbox';
+import { BASE_SIZE } from '../../config';
 
 function UI() {
   return (
@@ -160,8 +161,8 @@ function TransformUI() {
         id="positionX"
         value={positionX}
         setValue={setPositionX}
-        min={-100}
-        max={100}
+        min={-BASE_SIZE}
+        max={BASE_SIZE}
         step={0.1}
       />
 
@@ -170,8 +171,8 @@ function TransformUI() {
         id="positionY"
         value={positionY}
         setValue={setPositionY}
-        min={-100}
-        max={100}
+        min={-BASE_SIZE}
+        max={BASE_SIZE}
         step={0.1}
       />
 
@@ -180,8 +181,8 @@ function TransformUI() {
         id="positionZ"
         value={positionZ}
         setValue={setPositionZ}
-        min={-100}
-        max={100}
+        min={-BASE_SIZE}
+        max={BASE_SIZE}
         step={0.1}
       />
 
