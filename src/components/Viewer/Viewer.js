@@ -37,7 +37,7 @@ function Viewer() {
           <Scene />
         </Suspense>
 
-        <OrbitControls enableZoom={false} makeDefault />
+        <OrbitControls enableZoom={true} makeDefault />
 
         <Perf position="bottom-left" deepAnalyze={true} matrixUpdate={true} />
       </Canvas>
