@@ -357,7 +357,11 @@
 .Marker__content {
   padding: var(--padding--top) var(--padding--h) var(--padding--bottom);
 
-  text-transform: none;
+  border-top: 1px dashed rgba(0, 0, 0, 0.2);
+
+  .isLightText & {
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  }
 }
 
 .Marker__index {
@@ -381,6 +385,8 @@
 .Marker__title {
   flex-grow: 1;
   margin: 0 3px;
+
+  text-transform: none;
 }
 
 .Marker__remove {
@@ -421,6 +427,10 @@
   }
 }
 
+.Editor__label {
+  margin: 0 0 var(--padding--top);
+}
+
 .Editor__ui {
   display: flex;
   margin: 0 0 var(--padding--top);
@@ -432,6 +442,12 @@
 
 .Editor__content {
   @include ControlBase;
+
+  text-transform: none;
+
+  & [contenteditable] {
+    min-height: 3em;
+  }
 
   & p {
     margin: 0;

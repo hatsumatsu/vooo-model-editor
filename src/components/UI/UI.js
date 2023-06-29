@@ -244,8 +244,10 @@ function MarkersUI() {
     const item = {
       id: nanoid(),
       position: [0, 0, 0],
-      title: '',
-      content: ''
+      content: {
+        de: { title: '', description: '' },
+        en: { title: '', description: '' }
+      }
     };
 
     addItem(item);
@@ -305,6 +307,23 @@ function MarkersUI() {
   );
 }
 
+/**
+ * Data model:
+ *
+ * id: {int}
+ * position: {Array}
+ * content: {
+ *   de: {
+ *     title: {string},
+ *     description: {string},
+ *   },
+ *   en: {
+ *     title: {string},
+ *     description: {string},
+ *   }
+ * }
+ *
+ */
 function Item({
   item,
   index = 0,
@@ -313,16 +332,49 @@ function Item({
   onClickMoveUp = () => {},
   onChange = () => {}
 }) {
-  const [title, setTitle] = useState(item.title);
-  const [content, setContent] = useState(item.content);
+  const [titleDE, setTitleDE] = useState(item.content.de.title);
+  const [titleEN, setTitleEN] = useState(item.content.en.title);
+  const [descriptionDE, setDescriptionDE] = useState(
+    item.content.de.description
+  );
+  const [descriptionEN, setDescriptionEN] = useState(
+    item.content.en.description
+  );
 
   useEffect(() => {
     let debouncer;
 
     function onChangeDebounced() {
+      console.log('prpopagate content', {
+        ...item,
+        ...{
+          content: {
+            de: {
+              title: titleDE,
+              description: descriptionDE
+            },
+            en: {
+              title: titleEN,
+              description: descriptionEN
+            }
+          }
+        }
+      });
+
       onChange({
         ...item,
-        ...{ title, content }
+        ...{
+          content: {
+            de: {
+              title: titleDE,
+              description: descriptionDE
+            },
+            en: {
+              title: titleEN,
+              description: descriptionEN
+            }
+          }
+        }
       });
     }
 
@@ -332,14 +384,20 @@ function Item({
     return () => {
       clearTimeout(debouncer);
     };
-  }, [title, content, onChange]); // omit item as dependency to avoid infinite loop
+  }, [titleDE, titleEN, descriptionDE, descriptionEN]); // omit item as dependency to avoid infinite loop
 
-  function onChangeTitle(event) {
-    setTitle(event.target.value);
-  }
+  function onInput(key = 'title', language = 'de', value) {
+    console.log('onInput()', key, language, value);
 
-  function onChangeContent(content) {
-    setContent(content);
+    if (key === 'title') {
+      setTitleDE(value);
+      setTitleEN(value);
+    }
+
+    if (key === 'description') {
+      if (language === 'de') setDescriptionDE(value);
+      if (language === 'en') setDescriptionEN(value);
+    }
   }
 
   return (
@@ -349,8 +407,10 @@ function Item({
 
         <input
           type="text"
-          value={title}
-          onChange={onChangeTitle}
+          value={titleDE}
+          onChange={(event) => {
+            onInput('title', 'de', event.target.value);
+          }}
           className="Marker__title Input"
         />
 
@@ -383,13 +443,31 @@ function Item({
         </button>
       </div>
       <div className="Marker__content">
-        <MarkerEditor content={content} onChange={onChangeContent} />
+        <MarkerEditor
+          content={descriptionDE}
+          onChange={(value) => {
+            onInput('description', 'de', value);
+          }}
+          label="Description DE"
+        />
+      </div>
+      <div className="Marker__content">
+        <MarkerEditor
+          content={descriptionEN}
+          onChange={(value) => {
+            onInput('description', 'en', value);
+          }}
+          label="Description EN"
+        />
       </div>
     </li>
   );
 }
 
-function MarkerEditor({ content, onChange = () => {} }) {
+function MarkerEditor({ content, onChange = () => {}, label = null }) {
+  const wrapperRef = useRef();
+  const [showUI, setShowUI] = useState(true);
+
   const editor = useEditor({
     extensions: [StarterKit, Link],
     content: content,
@@ -399,53 +477,57 @@ function MarkerEditor({ content, onChange = () => {} }) {
   });
 
   return (
-    <div className="Editor">
-      <div className="Editor__ui">
-        <button
-          onClick={() => {
-            editor.chain().focus().toggleBold().run();
-          }}
-          className="Button ButtonGroup ButtonGroup--first"
-        >
-          <strong>B</strong>
-        </button>
+    <div className="Editor" ref={wrapperRef}>
+      {label && <p className="Editor__label">{label}</p>}
 
-        <button
-          onClick={() => {
-            editor.chain().focus().toggleItalic().run();
-          }}
-          className="Button ButtonGroup"
-        >
-          <em>I</em>
-        </button>
+      {showUI && (
+        <div className="Editor__ui">
+          <button
+            onClick={() => {
+              editor.chain().focus().toggleBold().run();
+            }}
+            className="Button ButtonGroup ButtonGroup--first"
+          >
+            <strong>B</strong>
+          </button>
 
-        <button
-          onClick={() => {
-            const url = window.prompt('URL');
-            editor.commands.setLink({ href: url });
-          }}
-          className="Button ButtonGroup"
-        >
-          Link
-        </button>
-        <button
-          onClick={() => {
-            editor.commands.unsetLink();
-          }}
-          className="Button ButtonGroup ButtonGroup--last"
-        >
-          Unlink
-        </button>
+          <button
+            onClick={() => {
+              editor.chain().focus().toggleItalic().run();
+            }}
+            className="Button ButtonGroup"
+          >
+            <em>I</em>
+          </button>
 
-        <button
-          onClick={() => {
-            editor.commands.unsetAllMarks();
-          }}
-          className="Button ButtonGroup ButtonGroup--last"
-        >
-          Clear
-        </button>
-      </div>
+          <button
+            onClick={() => {
+              const url = window.prompt('URL');
+              editor.commands.setLink({ href: url });
+            }}
+            className="Button ButtonGroup"
+          >
+            Link
+          </button>
+          <button
+            onClick={() => {
+              editor.commands.unsetLink();
+            }}
+            className="Button ButtonGroup ButtonGroup--last"
+          >
+            Unlink
+          </button>
+
+          <button
+            onClick={() => {
+              editor.commands.unsetAllMarks();
+            }}
+            className="Button ButtonGroup ButtonGroup--last"
+          >
+            Clear
+          </button>
+        </div>
+      )}
       <div className="Editor__content">
         <EditorContent editor={editor} />
       </div>

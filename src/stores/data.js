@@ -13,7 +13,7 @@ const useData = create((set, get) => ({
   rotationY: 0,
   rotationZ: 0,
 
-  items: [], // {id, position:[x,y,z], title, content}
+  items: [], // {id, position:[x,y,z], content: {de: {title, content}, en:{title, content}}}
   activeItemId: null,
 
   modelIsHidden: false,
